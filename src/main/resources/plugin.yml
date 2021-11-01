@@ -1,0 +1,10 @@
+  name: BakaAPI
+  main: top.wemc.bakaapi.Main
+  version: ${project.version}
+  prefix: BakaAPI⑨
+  authors:
+    - WYH2004
+  website: https://www.wemc.top
+  softdepend:
+    - PlaceholderAPI
+    - Vault
