@@ -1,6 +1,7 @@
 # BakaAPI
 ## MySQL API
->MySQL部分代码取自[MySqlForSpigot](https://github.com/wisdommen/MySqlForSpigot) [作者Github](https://github.com/wisdommen/)
+### MysqlAPI实现类
+`MysqlAPI mysqlAPI = new MysqlAPIImpl();`  
 ### 创建表  
 ##### 新建一个列对象，传入列名称、数据类型  
 `ColumnEntity uuid = new ColumnEntity("uuid", new DataEntity(DataType.VARCHAR, "(200)"));`  
