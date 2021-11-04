@@ -1,6 +1,9 @@
 package top.wemc.bakaapi;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import top.wemc.bakaapi.mysql.MysqlAPIImpl;
+import top.wemc.bakaapi.mysql.MysqlManager;
+import top.wemc.bakaapi.mysql.api.MysqlAPI;
 
 /**
  * @anthor WYH2004
@@ -22,7 +25,9 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         regConfig();
-        Metrics metrics = new Metrics(this, 11311);
+        if (getConfig().getBoolean("mysql.enabled")){
+            Metrics metrics = new Metrics(this, 11311);
+        }
         getLogger().info("§e插件已启用");
     }
 
@@ -33,6 +38,8 @@ public class Main extends JavaPlugin {
 
     public void regConfig(){
         getConfig().options().copyDefaults(true);
+        getConfig().addDefault("mysql.enabled", true);
+        getConfig().addDefault("mysql.debug", false);
         getConfig().addDefault("database.username", "root");
         getConfig().addDefault("database.password", "password");
         getConfig().addDefault("database.host", "localhost");
