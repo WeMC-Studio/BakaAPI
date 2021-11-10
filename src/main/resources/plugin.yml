@@ -8,3 +8,6 @@
   softdepend:
     - PlaceholderAPI
     - Vault
+  commands:
+      baka:
+          description: BakaAPI 主指令

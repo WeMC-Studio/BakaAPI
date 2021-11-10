@@ -1,6 +1,5 @@
 package top.wemc.bakaapi.mysql;
 
-import org.bukkit.Bukkit;
 import top.wemc.bakaapi.config.MysqlConfig;
 
 import java.sql.*;
@@ -22,12 +21,9 @@ public class MySqlHelper {
 
     static {
         try{
-            /*url = "jdbc:mysql://" + MysqlConfig.host + ":" + MysqlConfig.port + "/" + MysqlConfig.name + "?serverTimezone=UTC";
+            url = "jdbc:mysql://" + MysqlConfig.host + ":" + MysqlConfig.port + "/" + MysqlConfig.name + "?serverTimezone=UTC";
             userName = MysqlConfig.username;
-            password = MysqlConfig.password;*/
-            url = "jdbc:mysql://hz.openfrp.ml:33060/test?serverTimezone=UTC";
-            userName = "root";
-            password = "WangYuhao2004@";
+            password = MysqlConfig.password;
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("[BakaAPI-MySQL] MySQL驱动加载成功!");
         } catch (ClassNotFoundException ex) {

@@ -1,6 +1,7 @@
 package top.wemc.bakaapi;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import top.wemc.bakaapi.commands.baka;
 import top.wemc.bakaapi.config.DefaultConfig;
 import top.wemc.bakaapi.config.MysqlConfig;
 
@@ -24,9 +25,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         regConfig();
-//        if (MysqlConfig.mysqlEnabled){
-//            MysqlImpl.connectMysql();
-//        }
+        regCommands();
         getLogger().info("§e插件已启用");
     }
 
@@ -42,7 +41,12 @@ public class Main extends JavaPlugin {
         saveConfig();
     }
 
-    public static void reloadConfigs() {
+    public static void regCommands(){
+        getInstance().getCommand("baka").setExecutor(new baka());
+    }
+
+    public static void reloadConfigs(){
+        MysqlConfig.config.reload();
         Main.getInstance().reloadConfig();
     }
 

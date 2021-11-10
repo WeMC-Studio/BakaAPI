@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static top.wemc.bakaapi.mysql.MySqlHelper.getConnection;
-
 /**
  * @author WYH2004
  * @date 2021/11/10
