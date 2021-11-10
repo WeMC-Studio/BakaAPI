@@ -1,9 +1,9 @@
 package top.wemc.bakaapi.config;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import top.wemc.bakaapi.Main;
-import top.wemc.bakaapi.utils.Method;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,31 +14,38 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 /**
- * @author Hello_Han
- * @date 20??/??/??
- **/
+ * @author: Hello_Han
+ * @createDate: 2019/07/22
+ * @version: 2.2
+ */
 public class ConfigManager {
+
     private YamlConfiguration yml;
-    private File config;
+    private final File config;
 
     public ConfigManager(String name) {
-        String path = Main.getInstance().getDataFolder().toString().replace("\\", "/");
-        this.config = new File(path + "/" + name + ".yml");
+        File folder = Main.getInstance().getDataFolder();
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+        this.config = new File(folder, name + ".yml");
         try {
-            this.config.createNewFile();
-            Bukkit.getConsoleSender().sendMessage("§a正在实例化 " + path + "/" + name + ".yml");
-        } catch (IOException e) {
-            e.printStackTrace();
+            if(this.config.createNewFile()){
+                Bukkit.getConsoleSender().sendMessage("§a正在实例化 " + config.getPath());
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         this.yml = YamlConfiguration.loadConfiguration(this.config);
         init();
     }
 
     public ConfigManager(String name, String path) {
-        this.config = new File(path + "/" + name + ".yml");
+        this.config = new File(path, name + ".yml");
         try {
-            this.config.createNewFile();
-            Bukkit.getConsoleSender().sendMessage("§a正在实例化 " + path + "/" + name + ".yml");
+            if(this.config.createNewFile()){
+                Bukkit.getConsoleSender().sendMessage("§a正在实例化 " + path + "/" + name + ".yml");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,9 +64,13 @@ public class ConfigManager {
                 Object obj = getYml().get(cfg.path(), field.get(this));
                 yml.set(cfg.path(), obj);
                 if(obj instanceof String){
-                    obj = Method.transColor((String) obj);
+                    obj = ChatColor.translateAlternateColorCodes('&', (String) obj);
                 }
-                field.set(this, obj);
+                if(field.getType() == float.class){
+                    field.set(this, Float.parseFloat(String.valueOf(obj)));
+                }else{
+                    field.set(this, obj);
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -100,6 +111,10 @@ public class ConfigManager {
         }
     }
 
+    public Object getOrNull(String s){
+        return this.yml.get(s, null);
+    }
+
     public YamlConfiguration getYml(){
         return this.yml;
     }
@@ -113,7 +128,16 @@ public class ConfigManager {
     }
 
     public String getString(String s) {
-        return Method.transColor(this.yml.getString(s));
+        return ChatColor.translateAlternateColorCodes('&', this.yml.getString(s));
+    }
+
+    public void addDefault(String path, Object obj){
+        Object o = getYml().get(path, obj);
+        yml.set(path, obj);
+    }
+
+    public String getString(String s, String def) {
+        return ChatColor.translateAlternateColorCodes('&', this.yml.getString(s, def));
     }
 
     @Target(ElementType.FIELD)
@@ -123,4 +147,5 @@ public class ConfigManager {
         String path();
 
     }
+
 }
