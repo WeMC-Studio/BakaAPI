@@ -87,8 +87,8 @@ public class MySqlManager {
      * @param pivotValue
      * @throws SQLException
      */
-    public static void updateData(String tableName,String pivotColumnName, String primaryColumnName, String primaryValue, String pivotValue) throws SQLException {
-        String sql = "update " + tableName + " set " + pivotColumnName + "=? " + " where " + primaryColumnName + "=?";
+    public static void updateData(String tableName,String pivotColumnName, String pivotValue, String primaryColumnName, String primaryValue) throws SQLException {
+        String sql = "update " + tableName + " set " + pivotColumnName + "=" + pivotValue  + " where " + primaryColumnName + "=" + primaryValue;
         if (MysqlConfig.debugMode) {
             System.out.println("[BakaAPI-MySQL] SQL语句: " + sql);
             System.out.println("[BakaAPI-MySQL] 目标表位置: " + tableName);
@@ -97,7 +97,7 @@ public class MySqlManager {
             System.out.println("[BakaAPI-MySQL] 搜索依据列名称: " + primaryColumnName);
             System.out.println("[BakaAPI-MySQL] 搜索依据数据内容: " + primaryValue);
         }
-        MySqlHelper.execute(sql,pivotValue,primaryValue);
+        MySqlHelper.execute(sql);
     }
 
     /**
