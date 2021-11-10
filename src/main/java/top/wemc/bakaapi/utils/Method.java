@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 
 /**
- * @anthor WYH2004
+ * @author WYH2004
  * @date 2021/10/06
  **/
 public class Method {

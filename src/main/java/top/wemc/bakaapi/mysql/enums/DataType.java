@@ -1,8 +1,8 @@
 package top.wemc.bakaapi.mysql.enums;
 
 /**
- * @anthor WYH2004
- * @date 2021/11/01
+ * @author WYH2004
+ * @date 2021/11/10
  **/
 public enum DataType {
     TINYINT("TINYINT"),

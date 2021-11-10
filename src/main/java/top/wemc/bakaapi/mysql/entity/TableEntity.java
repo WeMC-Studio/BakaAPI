@@ -1,6 +1,9 @@
 package top.wemc.bakaapi.mysql.entity;
 
-
+/**
+ * @author WYH2004
+ * @date 2021/11/10
+ **/
 public class TableEntity {
     ColumnEntity[] columnEntities;
     String tableName;

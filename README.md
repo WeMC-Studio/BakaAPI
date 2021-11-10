@@ -1,29 +1,76 @@
 # BakaAPI
-## MySQL API
-### MysqlAPI实现类
-`MysqlAPI mysqlAPI = new MysqlAPIImpl();`  
-### 创建表  
-##### 新建一个列对象，传入列名称、数据类型  
-`ColumnEntity uuid = new ColumnEntity("uuid", new DataEntity(DataType.VARCHAR, "(200)"));`  
-##### 另一个新建列对象的方法，可以只传入列名称，数据类型默认是TEXT  
-`ColumnEntity playerName = new ColumnEntity("player_name");`  
-##### 新建一个表对象，传入表名称、id列名称（可选）、所有的列对象（可无限添加） 
-`TableEntity playerDataTable = new TableEntity("lottery_player_data", "uuid", uuid, playerName);`
-##### 使用api创建表，直接传入表对象
-`mysqlAPI.createTable(playerDataTable);`
-
-### 查询与添加  
+## MySQL通信
+### MySql Manager 方案(使用简单)
+> MySql Manager已实现基本增删改查功能  
+> 本项目Entity相关代码取自 [wisdommen](https://github.com/wisdommen/) 开发的 [MySqlForSpigot](https://github.com/wisdommen/MySqlForSpigot)
+##### 创建表
 ```java
-Player player = event.getPlayer();
-// 从主类获取MysqlAPI对象，我这里省略了主类的代码
-MysqlAPI mysqlAPI = Main.getInstance().getMysqlAPI();
-String playerUuid = player.getUniqueId().toString();
-// 调用isRecordExists方法查询玩家数据
-if (!mysqlAPI.isRecordExists("lottery_player_data", "uuid", playerUuid)) {
-    // 插入数据需要将数据全部做成一个map
-    Map<String, String> data = new HashMap<>();
-    data.put("uuid", playerUuid);
-    data.put("player_name", player.getName());
-    mysqlAPI.insertData("lottery_player_data", data);
+import top.wemc.bakaapi.mysql.MySqlManager;
+import top.wemc.bakaapi.mysql.entity.ColumnEntity;
+
+public class Main() {
+    public static void main(String[] args) {
+        // 新建一个列对象，传入列名称、数据类型
+        ColumnEntity uuid = new ColumnEntity("uuid", new DataEntity(DataType.VARCHAR, "(200)"));
+        // 另一个新建列对象的方法，可以只传入列名称，数据类型默认是TEXT
+        ColumnEntity playerName = new ColumnEntity("player_name");
+        // 新建一个表对象，传入表名称、id列名称（可选）、所有的列对象（可无限添加）
+        TableEntity playerDataTable = new TableEntity("lottery_player_data", "uuid", uuid, playerName);
+        // 使用api创建表，直接传入表对象
+        MySqlManager.createTable(playerDataTable);
+    }
+}
+```
+##### 其他方法
+
+```java
+import top.wemc.bakaapi.mysql.MySqlManager;
+import java.util.*;
+
+public class Main() {
+    public static void main(String[] args) {
+        // 向已有表中插入新数据
+        Map<String, String> datamap = new HashMap<String, String>(); // 创建一个Map用来写入数据
+        datamap.put("ID", "123"); // Key:列 Value:数据内容
+        datamap.put("Name", "WYH2004");
+        datamap.put("Password", "test");
+        MySqlManager.insertData("test", datamap); // 第一个参数为表名，第二个导入之前创建的Map
+
+        //删除表
+        MySqlManager.dropTable("test"); //参数填写需要删除的表名称
+
+        //删除行
+        //第一个参数为表名,第二个参数填写数据唯一的列名称,第三个即是对应的数据内容
+        MySqlManager.deleteLine("test","ID","123"); 
+        
+        //更新数据
+        //参数1: 表名
+        //参数2: 修改列名称
+        //参数3: 修改数据内容
+        //参数4: 搜索依据列名称
+        //参数5: 搜索依据数据内容
+        MySqlManager.updateData("test","Password","12345678","Name","WYH2004");
+        
+        //查询数据(返回值为Map<String, Object>)
+        //参数1: 表名
+        //参数2: 搜索依据列名称
+        //参数3: 搜索依据数据内容
+        Map<String,Object> data = MySqlManager.getRecordFromTable("test","Password","12345678");
+    }
+}
+```
+### MySql Helper 方案(自由度更高)
+
+```java
+import top.wemc.bakaapi.mysql.MySqlHelper;
+
+public class Main() {
+    public static void main(String[] args) {
+        //执行增 删 改操作
+        MySqlHelper.execute("sql语句");
+        
+        //查询操作(有返回值)
+        List<Object> result = MySqlHelper.executeQuery("sql语句");
+    }
 }
 ```

@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 /**
- * @anthor WYH2004
- * @date 2021/10/06
+ * @author Hello_Han
+ * @date 20??/??/??
  **/
 public class ConfigManager {
     private YamlConfiguration yml;

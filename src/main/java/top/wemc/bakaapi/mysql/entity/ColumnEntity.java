@@ -2,7 +2,10 @@ package top.wemc.bakaapi.mysql.entity;
 
 import top.wemc.bakaapi.mysql.enums.DataType;
 
-
+/**
+ * @author WYH2004
+ * @date 2021/11/10
+ **/
 public class ColumnEntity {
     String columnName;
     boolean isAutoIncrement = false;
