@@ -5,6 +5,7 @@ import top.wemc.bakaapi.api.MySqlHelperApi;
 import top.wemc.bakaapi.commands.baka;
 import top.wemc.bakaapi.config.DefaultConfig;
 import top.wemc.bakaapi.config.MysqlConfig;
+import top.wemc.bakaapi.config.PushConfig;
 import top.wemc.bakaapi.mysql.MySqlHelper;
 
 /**
@@ -45,7 +46,7 @@ public class Main extends JavaPlugin {
     public void regConfig(){
         DefaultConfig.defaultConfig();
         new MysqlConfig();
-
+        new PushConfig();
         saveConfig();
     }
 
@@ -55,6 +56,7 @@ public class Main extends JavaPlugin {
 
     public static void reloadConfigs(){
         MysqlConfig.config.reload();
+        PushConfig.config.reload();
         Main.getInstance().reloadConfig();
     }
 
