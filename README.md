@@ -62,13 +62,13 @@ public class Main() {
 ### MySql Helper 方案(自由度更高)
 
 ```java
-import top.wemc.bakaapi.mysql.MySqlHelper;
+
 
 public class Main() {
     public static void main(String[] args) {
         //执行增 删 改操作
         MySqlHelper.execute("sql语句");
-        
+
         //查询操作(有返回值)
         List<Object> result = MySqlHelper.executeQuery("sql语句");
     }

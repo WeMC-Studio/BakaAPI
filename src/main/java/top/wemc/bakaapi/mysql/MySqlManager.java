@@ -1,5 +1,7 @@
 package top.wemc.bakaapi.mysql;
 
+import top.wemc.bakaapi.Main;
+import top.wemc.bakaapi.api.MySqlHelperApi;
 import top.wemc.bakaapi.config.MysqlConfig;
 import top.wemc.bakaapi.mysql.entity.TableEntity;
 import top.wemc.bakaapi.utils.DataInsert;
@@ -14,6 +16,7 @@ import java.util.Map;
  * @date 2021/11/10
  **/
 public class MySqlManager {
+    private static MySqlHelperApi mySqlHelperApi = Main.getMySqlHelperApi();
     /**
      * 创建表
      * @param tableEntity
@@ -24,7 +27,7 @@ public class MySqlManager {
         if (MysqlConfig.debugMode) {
             System.out.println("[BakaAPI-MySQL] SQL语句: " + sql);
         }
-        MySqlHelper.execute(sql);
+        mySqlHelperApi.execute(sql);
     }
 
     /**
@@ -44,7 +47,7 @@ public class MySqlManager {
                 System.out.println("[BakaAPI-MySQL] key= " + entry.getKey() + " | value= " + entry.getValue());
             }
         }
-        MySqlHelper.execute(sql);
+        mySqlHelperApi.execute(sql);
     }
 
     /**
@@ -57,7 +60,7 @@ public class MySqlManager {
         if (MysqlConfig.debugMode){
             System.out.println("[BakaAPI-MySQL] SQL语句: " + sql);
         }
-        MySqlHelper.execute(sql);
+        mySqlHelperApi.execute(sql);
     }
 
     /**
@@ -75,7 +78,7 @@ public class MySqlManager {
             System.out.println("[BakaAPI-MySQL] 搜索依据列名称: " + primaryColumnName);
             System.out.println("[BakaAPI-MySQL] 搜索依据数据内容: " + primaryValue);
         }
-        MySqlHelper.execute(sql);
+        mySqlHelperApi.execute(sql);
     }
 
     /**
@@ -97,7 +100,7 @@ public class MySqlManager {
             System.out.println("[BakaAPI-MySQL] 搜索依据列名称: " + primaryColumnName);
             System.out.println("[BakaAPI-MySQL] 搜索依据数据内容: " + primaryValue);
         }
-        MySqlHelper.execute(sql);
+        mySqlHelperApi.execute(sql);
     }
 
     /**
@@ -114,7 +117,7 @@ public class MySqlManager {
             System.out.println("[BakaAPI-MySQL] SQL语句: " + sql);
             System.out.println("[BakaAPI-MySQL] =======返回值=======");
         }
-        List<Object> result = MySqlHelper.executeQuery(sql);
+        List<Object> result = mySqlHelperApi.executeQuery(sql);
         Iterator it = result.iterator();
         while (it.hasNext()){
             Object temp = it.next();
