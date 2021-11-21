@@ -1,9 +1,11 @@
 package top.wemc.bakaapi;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import top.wemc.bakaapi.api.MySqlHelperApi;
 import top.wemc.bakaapi.commands.baka;
 import top.wemc.bakaapi.config.DefaultConfig;
 import top.wemc.bakaapi.config.MysqlConfig;
+import top.wemc.bakaapi.mysql.MySqlHelper;
 
 /**
  * @author WYH2004
@@ -11,9 +13,14 @@ import top.wemc.bakaapi.config.MysqlConfig;
  **/
 public class Main extends JavaPlugin {
     private static Main instance;
+    private MySqlHelperApi mySqlHelperApi;
 
     public static Main getInstance(){
         return instance;
+    }
+
+    public static MySqlHelperApi getMySqlHelperApi(){
+        return instance.mySqlHelperApi;
     }
 
     @Override
@@ -24,6 +31,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        mySqlHelperApi = new MySqlHelper();
         regConfig();
         regCommands();
         getLogger().info("§e插件已启用");
