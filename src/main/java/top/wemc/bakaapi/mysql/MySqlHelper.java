@@ -17,9 +17,9 @@ import java.util.Map;
  * @date 2021/11/21 20:50
  **/
 public class MySqlHelper implements MySqlHelperApi {
-    private static final DataSource DATA_SOURCE;
+    private static DataSource dataSource;
 
-    static {
+    public MySqlHelper(){
         HikariConfig config = new HikariConfig();
         String ip = MysqlConfig.host;
         int port = MysqlConfig.port;
@@ -29,7 +29,10 @@ public class MySqlHelper implements MySqlHelperApi {
         config.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding);
         config.setUsername(MysqlConfig.username);
         config.setPassword(MysqlConfig.password);
-        DATA_SOURCE = new HikariDataSource(config);
+        config.addDataSourceProperty("connectionTimeout", MysqlConfig.connectionTimeout);
+        config.addDataSourceProperty("idleTimeout", MysqlConfig.idleTimeout);
+        config.addDataSourceProperty("maximumPoolSize", MysqlConfig.maximumPoolSize);
+        dataSource = new HikariDataSource(config);
     }
 
     /**
@@ -38,7 +41,7 @@ public class MySqlHelper implements MySqlHelperApi {
      */
     @Override
     public Connection getConnection(){
-        try(Connection conn = DATA_SOURCE.getConnection()){
+        try(Connection conn = dataSource.getConnection()){
             return conn;
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -54,7 +57,7 @@ public class MySqlHelper implements MySqlHelperApi {
      */
     @Override
     public boolean execute(String sql, Object... parameters) {
-        try (Connection conn = DATA_SOURCE.getConnection()) {
+        try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(sql)) {
                 if (parameters.length <= 0){
                     conn.setAutoCommit(false);
@@ -97,7 +100,7 @@ public class MySqlHelper implements MySqlHelperApi {
      */
     @Override
     public List<Object> executeQuery(String sql, Object... parameters) {
-        try (Connection conn = DATA_SOURCE.getConnection()) {
+        try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(sql)) {
                 ResultSet rs;
                 if(parameters.length <= 0) {

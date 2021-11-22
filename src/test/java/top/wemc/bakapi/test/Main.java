@@ -12,12 +12,12 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        JsonElement jsonElement =  JsonUtils.getJsonURL("https://qmsg.zendee.cn/send/2d8b6b5c84fece1a9508da1c0cb2275e");
-//        System.out.println(jsonElement);
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        System.out.println(jsonObject.get("success"));
-        System.out.println(jsonObject.get("reason"));
-        jsonElement.getAsBoolean();
-        System.out.println("done");
+        move(1);
+    }
+
+    public static void move(int a){
+        if(a==1){
+            // you code
+        }
     }
 }

@@ -39,4 +39,12 @@ public class MysqlConfig extends ConfigManager {
     @Config(path = "database.characterEncoding")
     public static String characterEncoding = "utf8";
 
+    @Config(path = "datasourse.connectionTimeout")
+    public static int connectionTimeout = 2000;
+
+    @Config(path = "datasourse.idleTimeout")
+    public static int idleTimeout = 60000;
+
+    @Config(path = "datasourse.maximumPoolSize")
+    public static int maximumPoolSize = 10;
 }
