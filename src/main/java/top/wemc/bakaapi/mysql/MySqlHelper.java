@@ -45,7 +45,7 @@ public class MySqlHelper implements MySqlHelperApi {
         config.addDataSourceProperty("useSSL", "false");
         config.setMaximumPoolSize(MysqlConfig.maximumPoolSize);
         config.setMinimumIdle(MysqlConfig.minimumIdle);
-        config.setMaxLifetime(1800000);
+        config.setMaxLifetime(MysqlConfig.maxLifetime);
         config.setConnectionTimeout(MysqlConfig.connectionTimeout);
         dataSource = new HikariDataSource(config);
     }
