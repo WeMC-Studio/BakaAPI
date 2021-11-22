@@ -5,6 +5,7 @@ import top.wemc.bakaapi.config.PushConfig;
 import top.wemc.bakaapi.utils.JsonUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author WYH2004
@@ -22,14 +23,7 @@ public class QmsgApi {
         if (PushConfig.qmsgEnabled){
             String url = "https://qmsg.zendee.cn/send/" + PushConfig.qmsgToken + "?msg=" + msg;
             if(qq.length > 0){
-                StringBuilder stringBuilder = new StringBuilder(url + "?qq=");
-                for (int i=0; i<qq.length; i++){
-                    if (i != 0){
-                        stringBuilder.append(",");
-                    }
-                    stringBuilder.append(qq[i]);
-                }
-                url = stringBuilder.toString();
+                url = url + "&qq=" +Arrays.toString(qq);
             }
             JsonElement rawData = JsonUtils.getJsonURL(url,"success");
             return rawData.getAsBoolean();
@@ -48,14 +42,7 @@ public class QmsgApi {
         if (PushConfig.qmsgEnabled){
             String url = "https://qmsg.zendee.cn/group/" + PushConfig.qmsgToken + "?msg=" + msg;
             if(qq.length > 0){
-                StringBuilder stringBuilder = new StringBuilder(url + "?qq=");
-                for (int i=0; i<qq.length; i++){
-                    if (i != 0){
-                        stringBuilder.append(",");
-                    }
-                    stringBuilder.append(qq[i]);
-                }
-                url = stringBuilder.toString();
+                url = url + "&at=" + Arrays.toString(qq);
             }
             JsonElement rawData = JsonUtils.getJsonURL(url,"success");
             return rawData.getAsBoolean();

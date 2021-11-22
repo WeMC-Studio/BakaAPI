@@ -1,4 +1,24 @@
 # BakaAPI
+## Qmsg酱
+### 调用方法
+
+```java
+import top.wemc.bakaapi.api.QmsgApi;
+
+public class Main() {
+    public static void main(String[] args) {
+        // 发送私聊消息
+        QmsgApi.sendMassage("消息内容");
+        // 指定QQ发送私聊消息(多个QQ号用 , 分开)
+        QmsgApi.sendMassage("消息内容","QQ号1,QQ号2");
+        // 发送群聊消息
+        QmsgApi.sendGroupMassage("消息内容");
+        // 发送群聊消息，并@QQ(多个QQ号用 , 分开,-1为@全体成员)
+        QmsgApi.sendGroupMassage("消息内容","QQ号1,QQ号2");
+    }
+}
+```
+
 ## MySQL通信
 ### MySql Manager 方案(使用简单)
 > MySql Manager已实现基本增删改查功能  
@@ -64,13 +84,21 @@ public class Main() {
 ```java
 
 
+import top.wemc.bakaapi.api.MySqlHelperApi;
+
+import java.sql.Connection;
+import java.util.List;
+
 public class Main() {
     public static void main(String[] args) {
-        //执行增 删 改操作
-        MySqlHelper.execute("sql语句");
+        // 建立API
+        MySqlHelperApi mySqlHelperApi = new MySqlHelper();
+        
+        // 执行增 删 改操作
+        mySqlHelperApi.execute("sql语句");
 
-        //查询操作(有返回值)
-        List<Object> result = MySqlHelper.executeQuery("sql语句");
+        // 查询操作(有返回值)
+        List<Object> result = mySqlHelperApi.executeQuery("sql语句");
     }
 }
 ```
