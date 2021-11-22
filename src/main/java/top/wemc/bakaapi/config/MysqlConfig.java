@@ -13,7 +13,7 @@ public class MysqlConfig extends ConfigManager {
     }
 
     @Config(path = "Mysql")
-    public static boolean mysqlEnabled = true;
+    public static boolean mysqlEnabled = false;
 
     @Config(path = "DebugMode")
     public static boolean debugMode = false;
@@ -33,17 +33,14 @@ public class MysqlConfig extends ConfigManager {
     @Config(path = "database.password")
     public static String password = "password";
 
-    @Config(path = "database.useUnicode")
-    public static boolean useUnicode = true;
-
-    @Config(path = "database.characterEncoding")
-    public static String characterEncoding = "utf8";
-
     @Config(path = "datasourse.connectionTimeout")
-    public static int connectionTimeout = 2000;
+    public static int connectionTimeout = 5000;
 
-    @Config(path = "datasourse.idleTimeout")
-    public static int idleTimeout = 60000;
+    @Config(path = "datasourse.minimumIdle")
+    public static int minimumIdle = 60000;
+
+    @Config(path = "datasourse.maxLifetime")
+    public static int maxLifetime = 1800000;
 
     @Config(path = "datasourse.maximumPoolSize")
     public static int maximumPoolSize = 10;

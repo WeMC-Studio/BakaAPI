@@ -24,6 +24,7 @@ public class baka implements CommandExecutor {
                 if (commandSender.hasPermission("baka.admin.core.reload")){
                     Main.reloadConfigs();
                     commandSender.sendMessage("[BakaAPI] 配置文件已重载");
+                    commandSender.sendMessage("[BakaAPI-MySql] MySql相关配置需要重启服务器，才可以生效");
                 }
             }
             if (strings[0].equals("debug")){

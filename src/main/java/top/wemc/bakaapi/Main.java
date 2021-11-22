@@ -32,9 +32,11 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        mySqlHelperApi = new MySqlHelper();
         regConfig();
         regCommands();
+        if(MysqlConfig.mysqlEnabled){
+            mySqlHelperApi = new MySqlHelper();
+        }
         getLogger().info("§e插件已启用");
     }
 
@@ -44,7 +46,7 @@ public class Main extends JavaPlugin {
     }
 
     public void regConfig(){
-        DefaultConfig.defaultConfig();
+        // DefaultConfig.defaultConfig();
         new MysqlConfig();
         new PushConfig();
         saveConfig();
@@ -57,7 +59,10 @@ public class Main extends JavaPlugin {
     public static void reloadConfigs(){
         MysqlConfig.config.reload();
         PushConfig.config.reload();
-        Main.getInstance().reloadConfig();
+        if(MysqlConfig.mysqlEnabled){
+
+        }
+        // Main.getInstance().reloadConfig();
     }
 
 }

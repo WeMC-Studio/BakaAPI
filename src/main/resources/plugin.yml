@@ -2,6 +2,7 @@
   main: top.wemc.bakaapi.Main
   version: ${project.version}
   prefix: BakaAPI⑨
+  api-version: 1.16
   authors:
     - WYH2004
   website: https://www.wemc.top

@@ -21,17 +21,32 @@ public class MySqlHelper implements MySqlHelperApi {
 
     public MySqlHelper(){
         HikariConfig config = new HikariConfig();
+        config.setPoolName("BakaApi-hikari");
         String ip = MysqlConfig.host;
         int port = MysqlConfig.port;
         String database = MysqlConfig.name;
-        String useUnicode = String.valueOf(MysqlConfig.useUnicode);
-        String characterEncoding = MysqlConfig.characterEncoding;
-        config.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + characterEncoding);
+        config.setJdbcUrl("jdbc:mysql://" + ip + ":" + port + "/" + database);
         config.setUsername(MysqlConfig.username);
         config.setPassword(MysqlConfig.password);
-        config.addDataSourceProperty("connectionTimeout", MysqlConfig.connectionTimeout);
-        config.addDataSourceProperty("idleTimeout", MysqlConfig.idleTimeout);
-        config.addDataSourceProperty("maximumPoolSize", MysqlConfig.maximumPoolSize);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", "true");
+        config.addDataSourceProperty("useLocalSessionState", "true");
+        config.addDataSourceProperty("rewriteBatchedStatements", "true");
+        config.addDataSourceProperty("cacheResultSetMetadata", "true");
+        config.addDataSourceProperty("cacheServerConfiguration", "true");
+        config.addDataSourceProperty("elideSetAutoCommits", "true");
+        config.addDataSourceProperty("maintainTimeStats", "false");
+        config.addDataSourceProperty("alwaysSendSetIsolation", "false");
+        config.addDataSourceProperty("cacheCallableStmts", "true");
+        config.addDataSourceProperty("useUnicode", "true");
+        config.addDataSourceProperty("characterEncoding", "utf-8");
+        config.addDataSourceProperty("useSSL", "false");
+        config.setMaximumPoolSize(MysqlConfig.maximumPoolSize);
+        config.setMinimumIdle(MysqlConfig.minimumIdle);
+        config.setMaxLifetime(1800000);
+        config.setConnectionTimeout(MysqlConfig.connectionTimeout);
         dataSource = new HikariDataSource(config);
     }
 
